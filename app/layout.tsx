@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     description:"My name is Vinod Vardaram, I'm a Software Developer. The question isn't who am I, but when am I? ",
   },
   icons:{
-    icon:"/images/icon.png"
+    icon:"/icon.png"
   }
 
 };
