@@ -37,8 +37,8 @@ export default function Sidebar() {
 	};
 
 	return (
-		<div className="hidden md:flex fixed z-40 bg-gray-200 h-[50vh] w-14 flex-col justify-between items-center p-4 left-0 top-1/4 rounded-e-3xl shadow-md">
-			<ul className="flex flex-col justify-evenly items-center h-full text-gray-800">
+		<div className="hidden md:flex fixed z-40 bg-gray-700 h-[50vh] w-14 flex-col justify-between items-center p-4 left-0 top-1/4 rounded-e-3xl shadow-md">
+			<ul className="flex flex-col justify-evenly items-center h-full text-gray-50">
 				{sections.map((section, index) => {
 					const Icon =
 						section === "home"
@@ -50,9 +50,9 @@ export default function Sidebar() {
 							: Mail;
 
 					return (
-						<li key={section} className="relative">
+						<li key={section} className="relative" onClick={() => scrollToSection(section)}>
 							<button
-								onClick={() => scrollToSection(section)}
+								
 								className="flex flex-col items-center"
 							>
 								<Icon size={20} />
