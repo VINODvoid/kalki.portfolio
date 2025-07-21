@@ -47,7 +47,7 @@ function HomeSection() {
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ delay: 0.4, type: 'spring' }}
         >
-          Hello! I'm Vinod (KALKI), a dedicated full-stack developer with expertise in modern web development and a keen interest in artificial intelligence. I&rsquo;m passionate about creating scalable, user-friendly web applications and diving into innovative AI technologies, including generative models and LLM integration, as well as Web3 technologies like Solana, Ethereum, and DePIN.
+          Hello! I&apos;m Vinod (KALKI), a dedicated full-stack developer with expertise in modern web development and a keen interest in artificial intelligence. I&rsquo;m passionate about creating scalable, user-friendly web applications and diving into innovative AI technologies, including generative models and LLM integration, as well as Web3 technologies like Solana, Ethereum, and DePIN.
         </motion.p>
         <motion.div
           className="buttons flex flex-row justify-center items-center space-x-4 mt-10"
