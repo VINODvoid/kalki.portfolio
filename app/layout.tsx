@@ -34,6 +34,9 @@ export const metadata: Metadata = {
     siteName:"Kalki | Portfolio",
     description:"My name is Vinod Vardaram, I'm a Software Developer. The question isn't who am I, but when am I? ",
   },
+  icons:{
+    icon:"/images/icon.png"
+  }
 
 };
 
