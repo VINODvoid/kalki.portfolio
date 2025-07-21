@@ -10,13 +10,13 @@ export default function Hr({ variant = "short" }: HrProps) {
       {variant === "long" ? (
         <>
           <motion.div
-            className="bg-gray-700 w-28 h-1 rounded-full mb-3 self-start"
+            className="bg-gray-700 w-28 h-1 rounded-full mb-3 self-start dark:bg-white"
             initial={{ opacity: 0, x: -100 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3, type: "spring" }}
           />
           <motion.div
-            className="bg-gray-700 w-28 h-1 rounded-full"
+            className="bg-gray-700 w-28 h-1 rounded-full dark:bg-white"
             initial={{ opacity: 0, x: 200 }}
             whileInView={{ opacity: 1, x: -50 }}
             transition={{ delay: 0.4, type: "spring" }}
@@ -25,13 +25,13 @@ export default function Hr({ variant = "short" }: HrProps) {
       ) : (
         <div className="flex justify-center items-center flex-col my-5">
           <motion.div
-            className="bg-gray-700 w-20 h-1 rounded-full mb-2"
+            className="bg-gray-700 w-20 h-1 rounded-full mb-2 dark:bg-gray-200"
             initial={{ opacity: 0, x: -45 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2, type: "spring" }}
           />
           <motion.div
-            className="bg-gray-700 w-20 h-1 rounded-full"
+            className="bg-gray-700 w-20 h-1 rounded-full dark:bg-gray-200"
             initial={{ opacity: 0, x: 150 }}
             whileInView={{ opacity: 1, x: 40 }}
             transition={{ delay: 0.3, type: "spring" }}
