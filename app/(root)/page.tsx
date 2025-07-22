@@ -17,6 +17,7 @@ const sections = [
 export default function Page() {
   const [current, setCurrent] = useState(0);
   const [canScroll, setCanScroll] = useState(true);
+  const isMobile = useRef(false);
 
   const touchStartY = useRef<number | null>(null);
   const touchEndY = useRef<number | null>(null);
@@ -27,7 +28,7 @@ export default function Page() {
   };
 
   const handleWheel = (e: WheelEvent) => {
-    if (!canScroll) return;
+    if (!canScroll || isMobile.current) return;
     e.preventDefault();
     setCanScroll(false);
 
@@ -38,7 +39,7 @@ export default function Page() {
   };
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    if (!canScroll) return;
+    if (!canScroll || isMobile.current) return;
     setCanScroll(false);
 
     if (e.key === 'ArrowDown') scrollTo(current + 1);
@@ -48,27 +49,37 @@ export default function Page() {
   };
 
   const handleTouchStart = (e: TouchEvent) => {
+    if (!canScroll || !isMobile.current) return;
     touchStartY.current = e.touches[0].clientY;
   };
 
   const handleTouchEnd = (e: TouchEvent) => {
+    if (!canScroll || !isMobile.current) return;
     touchEndY.current = e.changedTouches[0].clientY;
     const delta = (touchStartY.current ?? 0) - (touchEndY.current ?? 0);
 
-    if (Math.abs(delta) < 50 || !canScroll) return;
+    if (Math.abs(delta) < 50) return;
 
     setCanScroll(false);
-    if (delta > 0) scrollTo(current + 1); // swipe up
-    else scrollTo(current - 1); // swipe down
+    if (delta > 0) scrollTo(current + 1);
+    else scrollTo(current - 1);
 
     setTimeout(() => setCanScroll(true), 800);
   };
 
   useEffect(() => {
-    window.addEventListener('wheel', handleWheel, { passive: false });
-    window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('touchend', handleTouchEnd, { passive: true });
+    // Detect if device is mobile
+    isMobile.current = window.innerWidth < 768;
+
+    if (!isMobile.current) {
+      window.addEventListener('wheel', handleWheel, { passive: false });
+      window.addEventListener('keydown', handleKeyDown);
+    }
+
+    if (isMobile.current) {
+      window.addEventListener('touchstart', handleTouchStart, { passive: true });
+      window.addEventListener('touchend', handleTouchEnd, { passive: true });
+    }
 
     return () => {
       window.removeEventListener('wheel', handleWheel);
