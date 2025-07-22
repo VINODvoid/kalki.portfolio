@@ -69,7 +69,7 @@ export default function Page() {
 
   useEffect(() => {
     // Detect if device is mobile
-    isMobile.current = window.innerWidth < 768;
+    isMobile.current = window.innerWidth < 668;
 
     if (!isMobile.current) {
       window.addEventListener('wheel', handleWheel, { passive: false });
