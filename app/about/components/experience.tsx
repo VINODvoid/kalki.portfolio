@@ -126,7 +126,7 @@ function Title() {
 			<div className="flex justify-center items-center flex-col my-5 self-start">
 				<Hr variant="long"></Hr>
 				<motion.h1
-					className="text-3xl font-bold mt-3"
+					className="text-3xl font-bold mt-3 text-black"
 					initial={{
 						opacity: 0,
 						x: -200,

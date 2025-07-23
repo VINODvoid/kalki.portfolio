@@ -13,7 +13,6 @@ const skillCategories = {
 			"CSS",
 			"JavaScript",
 			"TypeScript",
-			"PHP",
 			"Python",
 			"React",
 			"NextJS",
@@ -21,12 +20,13 @@ const skillCategories = {
 			"Bootstrap",
 			"NodeJS",
 			"ExpressJS",
-			"Laravel",
 			"Flask",
 			"Django",
+			"Java",
+			
 			"Firebase"
 		],
-		tools: ["Visual Studio Code", "Git", "Github", "Figma", "Vite", "Docker", "Kubernetes", "Google Cloud", "Postman"],
+		tools: ["Visual Studio Code", "Git", "Github", "Figma", "Vite", "Docker", "Kubernetes", "Google Cloud", "Postman","AWS"],
 	},
 	api: {
 		title: "REST API",
@@ -35,9 +35,9 @@ const skillCategories = {
 		languages: [
 			"NodeJS",
 			"ExpressJS",
-			"PHP",
-			"Laravel",
 			"Python",
+			"Spring Boot",
+
 			"FastAPI",
 			"Flask",
 			"Django",

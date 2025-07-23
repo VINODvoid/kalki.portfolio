@@ -29,7 +29,7 @@ export default function Page() {
 	return (
 		<>
 			<main className="overflow-hidden bg-white">
-				<FixedButton href="/#about">
+				<FixedButton href="/">
 					<FontAwesomeIcon
 						icon={faChevronLeft}
 						className="text-black pr-10"
