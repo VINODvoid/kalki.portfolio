@@ -19,6 +19,7 @@ import Hr from "@/components/Hr";
 import FixedButton from "@/components/FixedButton";
 import Skills from "./components/skills/skills";
 import Quote from "./components/quote/quote";
+import About from "./components/about/about";
 // import About from "./components/about/about.jsx";
 
 export default function Page() {
@@ -82,7 +83,7 @@ export default function Page() {
 				{/* end hero */}
 
 				{/* about */}
-				{/* <About /> */}
+				<About />
 				{/* end about */}
 
 				{/* skills */}
