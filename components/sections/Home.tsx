@@ -56,7 +56,7 @@ function HomeSection() {
           transition={{ delay: 0.5, type: 'spring' }}
         >
           <Button variation="primary">
-            <Link href="/docs/cv.pdf" target="_blank" rel="noopener noreferrer" download>
+            <Link href="/docs/resume.pdf" target="_blank" rel="noopener noreferrer" download>
               Download CV
             </Link>
           </Button>
