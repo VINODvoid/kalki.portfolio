@@ -3,33 +3,40 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import jsonData from "@/json/data.json";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import { faArrowUpRightFromSquare, faChevronLeft, faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import NotFound from "@/app/not-found";
 import Image from "next/image";
 import BlurImage from "@/public/images/projects.png";
 import FixedButon from "@/components/FixedButton";
-import { faChevronLeft, faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
 
 function ScrollDownButton() {
   const [isAtBottom, setIsAtBottom] = useState(false);
 
-  const handleScroll = () => {
-    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    if (scrollTop < document.documentElement.scrollHeight - document.documentElement.clientHeight) {
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const isBottom = scrollTop >= document.documentElement.scrollHeight - document.documentElement.clientHeight - 10;
+      setIsAtBottom(isBottom);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleClick = () => {
+    if (!isAtBottom) {
       window.scrollTo({
         top: document.documentElement.scrollHeight,
         behavior: "smooth",
       });
-      setIsAtBottom(true);
     } else {
       window.scrollTo({
         top: 0,
         behavior: "smooth",
       });
-      setIsAtBottom(false);
     }
   };
 
@@ -39,7 +46,8 @@ function ScrollDownButton() {
         className="h-10 w-10 bg-neutral-900 rounded-full flex justify-center items-center cursor-pointer"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        onClick={handleScroll}
+        onClick={handleClick}
+        aria-label={isAtBottom ? "Scroll to top" : "Scroll to bottom"}
       >
         <FontAwesomeIcon
           icon={isAtBottom ? faChevronUp : faChevronDown}
@@ -51,32 +59,28 @@ function ScrollDownButton() {
 }
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 function Page({ params }: PageProps) {
-  const slug = params.slug; // <-- use params.slug directly
+  const { slug } = React.use(params); // Unwrap params with React.use
 
   const [data, setData] = useState<any | "404" | null>(null);
 
   useEffect(() => {
-    const selectedData = jsonData.Projects.find(
-      (item) => item.slug === slug
-    );
-    if (!selectedData) {
-      setData("404");
-    } else {
-      setData(selectedData);
-    }
+    const selectedData = jsonData.Projects.find((item) => item.slug === slug);
+    setData(selectedData || "404");
   }, [slug]);
 
   if (data === "404") {
     return <NotFound />;
-  } else if (!data) {
+  }
+
+  if (!data) {
     return (
-      <div className="relative min-h-screen w-full gap-4 p-10 flex justify-center items-center flex-col mb-10 ">
+      <div className="relative min-h-screen w-full gap-4 p-10 flex justify-center items-center flex-col mb-10">
         <div className="min-h-screen flex justify-center items-center w-full">
           <div className="mx-auto grid grid-cols-1 md:grid-cols-2 w-full">
             <div className="flex justify-center items-start flex-col mb-5 space-y-10 w-full p-4">
@@ -87,11 +91,10 @@ function Page({ params }: PageProps) {
               <div className="animate-pulse bg-neutral-400 h-20 w-full rounded shadow-lg"></div>
             </div>
             <div className="flex justify-start items-start flex-col mb-5 w-full p-4">
-              <div className="animate-pulse duration-500 shadow-lg bg-neutral-400 rounded w-full h-full "></div>
+              <div className="animate-pulse duration-500 shadow-lg bg-neutral-400 rounded w-full h-full"></div>
             </div>
           </div>
         </div>
-        {/* images */}
         <div className="mx-auto grid grid-cols-1 p-5 md:p-20 w-full h-auto">
           <div className="w-full h-auto aspect-video">
             <div className="animate-pulse duration-500 shadow-lg bg-neutral-400 h-full w-full rounded"></div>
@@ -102,7 +105,7 @@ function Page({ params }: PageProps) {
   }
 
   return (
-    <div className="relative min-h-screen w-full gap-4 p-10 flex justify-center items-center flex-col mb-10 ">
+    <div className="relative min-h-screen w-full gap-4 p-10 flex justify-center items-center flex-col mb-10">
       <FixedButon href="/projects">
         <FontAwesomeIcon icon={faChevronLeft} className="text-black pr-10" />
       </FixedButon>
@@ -155,7 +158,7 @@ function Page({ params }: PageProps) {
               </div>
             )}
           </div>
-          <div className="flex justify-start items-start flex-col mb-5 ">
+          <div className="flex justify-start items-start flex-col mb-5">
             <h2 className="uppercase font-normal text-lg tracking-[8px] text-neutral-400">
               Description
             </h2>
@@ -170,9 +173,8 @@ function Page({ params }: PageProps) {
           </div>
         </div>
       </div>
-      {/* images */}
       <div className="mx-auto grid grid-cols-1 p-5 md:p-20 w-full">
-        <div className="w-full h-auto text-center flex flex-col justify-center ">
+        <div className="w-full h-auto text-center flex flex-col justify-center">
           {data.images.map((image: string, index: number) => (
             <Image
               key={index}
@@ -182,8 +184,8 @@ function Page({ params }: PageProps) {
               width={1920}
               height={1080}
               blurDataURL={BlurImage.src}
-              layout="responsive"
-              objectFit="contain"
+              placeholder="blur"
+              priority={index === 0}
             />
           ))}
         </div>
