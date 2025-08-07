@@ -114,7 +114,7 @@ export default function About() {
 						Hey there, I&rsquo;m  Vinod ( Kalki ), a
 						<span className="text-black font-medium">
 							{" "}
-							passionate Web Developer
+							passionate Software Developer
 						</span>{" "}
 						with a growing expertise in
 						<span className="text-black font-medium">
