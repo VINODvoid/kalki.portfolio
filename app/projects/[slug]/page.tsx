@@ -12,6 +12,21 @@ import BlurImage from "@/public/images/projects.png";
 import FixedButon from "@/components/FixedButton";
 import React from "react";
 
+// Define the Project interface to match the structure of jsonData.Projects
+interface Project {
+  show: boolean;
+  title: string;
+  desc: string[];
+  year: string;
+  preview?: string; // Made optional to match data.json
+  code?: string; // Made optional to match data.json
+  thumbnail: string;
+  images: string[];
+  tech: string[];
+  slug: string;
+  category: number[];
+}
+
 function ScrollDownButton() {
   const [isAtBottom, setIsAtBottom] = useState(false);
 
@@ -67,7 +82,7 @@ interface PageProps {
 function Page({ params }: PageProps) {
   const { slug } = React.use(params); // Unwrap params with React.use
 
-  const [data, setData] = useState<any | "404" | null>(null);
+  const [data, setData] = useState<Project | "404" | null>(null);
 
   useEffect(() => {
     const selectedData = jsonData.Projects.find((item) => item.slug === slug);
